@@ -81,7 +81,8 @@ router.delete("/productos/:id", async(req, res) =>{
 })
 
 //Carrito
-let carrito = new Lista('./carrito.json');
+const ListaCarro = require('./src/clase.js');
+let carrito = new ListaCarro('./carrito.json');
 
 //POST carrito
 router.post('/carrito', async (req, res) => {
@@ -109,24 +110,16 @@ router.get("/carrito/:id/productos", async(req, res) =>{
 
     const {id} = req.params;
 
-    let carro = await carrito.getById(parseInt(id))
-
-    let productosDelCarro = carro.productos;
-
-    res.send(productosDelCarro);
+    let mostrar = await carrito.getProductor(parseInt(id))
 })
 
 router.post("/carrito/:id/productos", async(req, res) =>{
 
     const {id} = req.params;
 
-    let carro = await carrito.getById(parseInt(id))
-
-    let productosDelCarro = carro.productos;
-
     const { body } = req;
 
-    productosDelCarro.push(body);
+    let productosDelCarro = await carrito.saveProducto(id, body)
 
     res.send(productosDelCarro);
 })
@@ -135,22 +128,11 @@ router.delete("/carrito/:id/productos/:idProducto", async(req, res) =>{
 
     const {id} = req.params;
 
-    let carro = await carrito.getById(parseInt(id))
-
-    let productosDelCarro = carro.productos;
-
     const {idProducto} = req.params;
 
-    let posicionItemBuscado = productosDelCarro.findIndex((x) => x.id === numero);
-        if (posicionItemBuscado === -1) {
-            console.log("Error, no existe un item con ese id");
-        } else {
-            productosDelCarro.splice(posicionItemBuscado, 1);
-            let pasarloAJSON = JSON.stringify(array);
-            await this.saveLista(pasarloAJSON);
-        }
+    await carrito.deleteProducto(id,idProducto)
 
-    res.send(productosDelCarro);
+    res.send();
 })
 
 //
