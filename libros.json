@@ -1,0 +1,13 @@
+[
+  {
+    "id": 1,
+    "titulo": "Percy Jackson y el ladrón del rayo",
+    "autor": "Rick Riordan",
+    "descripcion": "Expulsado de seis colegios, Percy padece dislexia y dificultades para concentrarse, o al menos ésa es la versión oficial. Objeto de burlas por inventarse historias fantásticas, ni siquiera él mismo acaba de creérselas hasta el día que los dioses del Olimpo le revelan la verdad: Percy es nada menos que un semidiós, es decir, el hijo de un dios y una mortal. Y como tal ha de descubrir quién ha robado el rayo de Zeus y así evitar que estalle una guerra entre los dioses. Para cumplir la misión contará con la ayuda de sus amigos Grover, un joven sátiro, y Annabeth, hija de Atenea.",
+    "img": "https://imagessl5.casadellibro.com/a/l/t5/65/9788498382365.jpg",
+    "precio": 1450,
+    "stock": 20,
+    "codigo": "PJ001",
+    "fecha": "28 de junio de 2005"
+  }
+]
