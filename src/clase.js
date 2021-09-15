@@ -67,8 +67,13 @@ class Lista {
             return ("No se encontró item")
         }else{
 
-            array[posicionItem].title = itemNuevo.title;
-            array[posicionItem].mainCharacter = itemNuevo.mainCharacter;
+            array[posicionItem].titulo = itemNuevo.titulo;
+            array[posicionItem].autor = itemNuevo.autor;
+            array[posicionItem].descripcion = itemNuevo.descripcion;
+            array[posicionItem].img = itemNuevo.img;
+            array[posicionItem].stock = itemNuevo.stock;
+            array[posicionItem].codigo = itemNuevo.codigo;
+            array[posicionItem].fecha = itemNuevo.fecha;
 
             let pasarloAJSON = JSON.stringify(array);
 

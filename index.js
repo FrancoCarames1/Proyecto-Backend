@@ -18,6 +18,15 @@ app.get('/', (req, res) => {
     res.send("HOLA")
 });
 
+//Validar
+async function validarUser(req, res, next){
+    if(admin = true){
+        next()
+    }else{
+        next("No tiene los permisos para esto")
+    }
+}
+
 //Productos
 let libros = new Lista('./libros.json');
 
@@ -37,7 +46,7 @@ router.get("/:id", async (req, res) =>{
 })
 
 //PUT de productos
-router.put("/productos/:id", async (req, res) =>{
+router.put("/productos/:id",validarUser, async (req, res) =>{
 
     const {id} = req.params;
 
@@ -58,25 +67,25 @@ router.put("/productos/:id", async (req, res) =>{
 })
 
 //POST de productos
-router.post('/productos', async (req, res) => {
+router.post('/productos',validarUser, async (req, res) => {
 
     const { body } = req;
 
-    console.log(body)
+    let objeto = {...body, fecha: Date.now() }
 
-    await libros.saveItem(body);
+    let mostrar = await libros.saveItem(objeto);
 
-    res.send()
+    res.send(mostrar)
 });
 
 //DELETE de productos por id
-router.delete("/productos/:id", async(req, res) =>{
+router.delete("/productos/:id",validarUser ,async(req, res) =>{
 
     const {id} = req.params;
 
-    let mostrar = await libros.deleteById(parseInt(id))
+    await libros.deleteById(parseInt(id))
 
-    res.send(mostrar);
+    res.send('Borrado');
 
 })
 
@@ -91,9 +100,9 @@ router.post('/carrito', async (req, res) => {
 
     let objeto = {...body, fecha: Date.now() }
 
-    await carrito.saveItem(objeto);
+    let mostrar = await carrito.saveItem(objeto);
 
-    res.send()
+    res.send(mostrar)
 });
 
 //DELETE carrito por id
@@ -101,9 +110,9 @@ router.delete("/carrito/:id", async(req, res) =>{
 
     const {id} = req.params;
 
-    let mostrar = await carrito.deleteById(parseInt(id))
+    await carrito.deleteById(parseInt(id))
 
-    res.send(mostrar);
+    res.send('Borrado');
 })
 
 router.get("/carrito/:id/productos", async(req, res) =>{
@@ -111,6 +120,8 @@ router.get("/carrito/:id/productos", async(req, res) =>{
     const {id} = req.params;
 
     let mostrar = await carrito.getProductor(parseInt(id))
+
+    res.send(mostrar)
 })
 
 router.post("/carrito/:id/productos", async(req, res) =>{
@@ -132,7 +143,7 @@ router.delete("/carrito/:id/productos/:idProducto", async(req, res) =>{
 
     await carrito.deleteProducto(id,idProducto)
 
-    res.send();
+    res.send("Borrado");
 })
 
 //
